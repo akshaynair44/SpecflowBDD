@@ -64,3 +64,123 @@ Scenario Outline: Control mode switches for mode 1 to 6
 		| 6      | 3      | Disconnected           | Disconnected           |
 		| 6      | 4      | Connected              | Connected              |
 		| 6      | 5      | Ready for Reconnection | Ready for Reconnection |
+
+Scenario: Remote Disconnect_Verify Remote disconnect/reconnect with control mode 2 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "2"
+	And Perform remote_diconnect using obis code ""
+	And Read the Control state of the meter using obis code ""
+	And Control state should be "Disonnected"
+	And Perform remote_reconnect using obis code ""
+	When Read the Control state of the meter using obis code ""
+	Then Control state should be "Connected"
+
+Scenario Outline: Remote Disconnect_Verify manual disconnect/reconnect with control mode 2 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "2"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Connected"
+	And Perform manual_disconnect 
+	And Read the Control state using obis code ""
+	And The control state should be "Ready for Reconnection"
+	And Perform manual_reconnect
+	When read the control state using obis code ""
+	Then Control state should be "Connected"
+
+Scenario Outline: Remote Disconnect_Verify local disconnect/reconnect with control mode 2 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "2"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Connected"
+	And Perform local_disconnect using obis code ""
+	When Read the control state using obis code ""
+	Then Control state should be "Ready for Reconnection"
+
+Scenario Outline: Remote Disconnect_Verify Remote disconnect/reconnect with control mode 3 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform remote_disconnect using obis code ""
+	When Read the control state using obis code ""
+	Then Control state should be "Disconnected"
+
+Scenario Outline: Remote Disconnect_Verify manual disconnect/reconnect with control mode 3 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform manual_reconnect 
+	When Read the control state using obis code ""
+	Then Control state should be "Connected"
+
+Scenario Outline: Remote Disconnect_Verify local disconnect/reconnect with control mode 3 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform manual_reconnect 
+	And Read the control state using obis code ""
+	And Control state should be "Connected"
+	And Perform local_diconnect
+	When Read the control state using obis code ""
+	Then Control state should be "Ready for Reconnection"
+
+Scenario Outline: Remote Disconnect_Verify Remote disconnect/reconnect with control mode 6 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform remote_disconnect 
+	When Read the control state using obis code ""
+	Then Control state should be "Disconnected"
+	
+Scenario Outline: Remote Disconnect_Verify manual disconnect/reconnect with control mode 6 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform manual_reconnect 
+	When Read the control state using obis code ""
+	Then Control state should be "Connected"
+
+Scenario Outline: Remote Disconnect_Verify local disconnect/reconnect with control mode 6 for disconnection operation.
+	Given The Meter is powered on
+	And Read the Control state of the meter using obis code ""
+	And Set the Control mode to "3"
+	And Perform remote_diconnect using obis code ""
+	And Check the control state, it should be "Disconnected"
+	And Perform remote_reconnect using obis code ""
+	And Check the control state, it should be "Ready for Reconnection"
+	And Perform local_reconnect 
+	And Read the control state using obis code ""
+	And Control state should be "Connected"
+	And Perform local_disconnect 
+	When Read the control state using obis code ""
+	Then Control state should be "Ready for Reconnection"
+
+
+
+
